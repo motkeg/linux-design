@@ -12,10 +12,10 @@ git config --global user.name "User Name"
 git config --global user.email "user@email"
 ```
 
-Locally clone this tree — e.g., after forking to user (or group) `user-or-group`:
+Locally clone this tree — e.g., after forking to user `username`:
 
 ```bash
-git clone https://git.noexec.org/<user-or-group>/linux-design.git
+git clone https://git.noexec.org/username/linux-design.git
 ```
 
 Add an upstream remote, in order to be able to pull updates from the original tree:
