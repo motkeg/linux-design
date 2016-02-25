@@ -1,4 +1,5 @@
 In order to work on assignments and projects, you need to do the following in web interface:
+
 1. Fork this tree to a **private** repository.
 2. Add other team members with Master or Developer privileges
    (the main difference is that Developers can't push directly to `master` branch).
@@ -24,7 +25,8 @@ Add an upstream remote, in order to be able to pull updates from the original tr
 git remote add upstream https://git.noexec.org/study/linux-design.git
 ```
 
-Pull updates from upstream — e.g., after new assignment files are added:
+Pull updates from upstream — e.g., after new assignment files are added, or after
+an existing assignment is updated:
 
 ```bash
 git fetch upstream
@@ -40,3 +42,7 @@ or simply:
 ```bash
 git push
 ```
+
+New to `git` version control?
+Start with a [tutorial](https://git-scm.com/docs/gittutorial),
+continue to [more tutorials](https://www.atlassian.com/git/tutorials/).

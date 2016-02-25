@@ -1,6 +1,6 @@
-# Assignment 1 (DRAFT)
+# Assignment 1
 
-Deadline: **03/03/2016**, submission is in pairs.
+Deadline: **03/03/2016** (last updated on 25/02/2016), submission is in pairs.
 
 Details of submitter 1: **John Doe <johndoe@dotcom.com>, ID 123456789**
 
@@ -187,18 +187,18 @@ YOUR SOLUTION HERE
 
 # Task 10
 
-For each executable file in `/usr/bin`, use `ldd` to find out which dynamic libraries it uses.
-For each “real” dynamic library, located directly under `/lib64` or /usr/lib64` (note that one
-is a symlink to another), ignoring subdirectories, find out the package that it belongs to
-using `repoquery`, and print all such short package names without repetitions.
+For each executable file in `/usr/bin`, use `ldd` to find out which dynamic libraries it is
+linked against. For each “real” dynamic library, located directly under `/lib64` or /usr/lib64`
+(note that one is a symlink to another), ignoring subdirectories, find out the package that it
+belongs to using `repoquery`, and print all such short package names without repetitions.
 
 For example, `ldd /usr/bin/ls` lists
 ```
 libacl.so.1 => /lib64/libacl.so.1 (0x00007fdf52f06000)
 ```
-among other things. `/lib64` is just a symlink, so the file is registered in database of installed
-packages as `/usr/lib64/libacl.so.1.1.0`. `repoquery` reports that this library belongs to package
-`libacl-0:2.2.51-12.el7.x86_64`, the name being `libacl`. Hence, a part of the output is:
+among other entries. `/lib64` is just a symlink, so the file is registered in database of installed
+packages as `/usr/lib64/libacl.so.1`. `repoquery` reports that this library belongs to package
+`libacl-0:2.2.51-12.el7.x86_64`, the short name being `libacl`. Hence, the output looks like:
 ```
 kmod-libs
 krb5-libs
