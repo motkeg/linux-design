@@ -32,6 +32,10 @@ an existing assignment is updated:
 git fetch upstream
 git merge upstream/master
 ```
+or simply:
+```bash
+git pull upstream master
+```
 
 Push local commits to server, after adding and committing files using `git add` and `git commit`:
 
