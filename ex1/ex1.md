@@ -188,7 +188,7 @@ YOUR SOLUTION HERE
 # Task 10
 
 For each executable file in `/usr/bin`, use `ldd` to find out which dynamic libraries it is
-linked against. For each “real” dynamic library, located directly under `/lib64` or /usr/lib64`
+linked against. For each “real” dynamic library, located directly under `/lib64` or `/usr/lib64`
 (note that one is a symlink to another), ignoring subdirectories, find out the package that it
 belongs to using `repoquery`, and print all such short package names without repetitions.
 
