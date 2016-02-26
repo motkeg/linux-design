@@ -1,6 +1,6 @@
 In order to work on assignments and projects, you need to do the following in web interface:
 
-1. Fork this tree to a **private** repository.
+1. Fork this tree to a **private** repository (you will see a *Fork* button after you sign in).
 2. Add other team members with Master or Developer privileges
    (the main difference is that Developers can't push directly to `master` branch).
 3. Add @orlovm with Guest privileges.
