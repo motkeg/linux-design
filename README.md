@@ -18,6 +18,7 @@ Locally clone this tree — e.g., after forking to user `username`:
 
 ```bash
 git clone https://git.noexec.org/username/linux-design.git
+cd linux-design
 ```
 
 Add an upstream remote, in order to be able to pull updates from the original tree:
