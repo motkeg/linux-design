@@ -27,7 +27,7 @@ address and the new password for authentication.
 Regardless, you can continue to use OAuth (e.g., an external Google account) for authenticating via
 the web, but it is best to add two-factor authentication for protecting your local account credentials.
 
-Another option is to use SSH keys — you will need to generate an SSH keypair using `ssh-keygen`, add the
+However, a better option is to use SSH keys — you will need to generate an SSH keypair using `ssh-keygen`, add the
 public key `~/.ssh/id_rsa.pub` via the web interface, and clone the project as follows instead:
 ```bash
 git clone git@ssh.git.noexec.org:username/linux-design.git
@@ -37,6 +37,11 @@ Add an upstream remote, in order to be able to pull updates from the original tr
 
 ```bash
 git remote add upstream https://git.noexec.org/study/linux-design.git
+```
+
+If you use SSH authentication, fix the URL above, or change the URL later:
+```
+git remote set-url upstream git@ssh.git.noexec.org:study/linux-design.git
 ```
 
 Pull updates from upstream — e.g., after new assignment files are added, or after
