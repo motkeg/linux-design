@@ -21,6 +21,18 @@ git clone https://git.noexec.org/username/linux-design.git
 cd linux-design
 ```
 
+You will be queried for a password, so you should set it in your profile if you don't have one —
+click on the password reset link, logout, and continue from there. When done, you can use your email
+address and the new password for authentication.
+Regardless, you can continue to use OAuth (e.g., an external Google account) for authenticating via
+the web, but it is best to add two-factor authentication for protecting your local account credentials.
+
+Another option is to use SSH keys — you will need to generate an SSH keypair using `ssh-keygen`, add the
+public key `~/.ssh/id_rsa.pub` via the web interface, and clone the project as follows instead:
+```bash
+git clone git@ssh.git.noexec.org:study/linux-design.git
+```
+
 Add an upstream remote, in order to be able to pull updates from the original tree:
 
 ```bash
