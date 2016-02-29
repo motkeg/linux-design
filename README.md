@@ -30,7 +30,7 @@ the web, but it is best to add two-factor authentication for protecting your loc
 Another option is to use SSH keys — you will need to generate an SSH keypair using `ssh-keygen`, add the
 public key `~/.ssh/id_rsa.pub` via the web interface, and clone the project as follows instead:
 ```bash
-git clone git@ssh.git.noexec.org:study/linux-design.git
+git clone git@ssh.git.noexec.org:username/linux-design.git
 ```
 
 Add an upstream remote, in order to be able to pull updates from the original tree:
