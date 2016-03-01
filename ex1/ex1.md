@@ -1,6 +1,6 @@
 # Assignment 1
 
-Deadline: **03/03/2016** (last updated on 25/02/2016), submission is in pairs.
+Deadline: **06/03/2016** (last updated on 25/02/2016), submission is in pairs.
 
 Details of submitter 1: **John Doe <johndoe@dotcom.com>, ID 123456789**
 
