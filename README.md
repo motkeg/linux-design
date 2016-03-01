@@ -51,7 +51,7 @@ Pull updates from upstream — e.g., after new assignment files are added, or af
 an existing assignment is updated:
 
 ```bash
-git fetch upstream
+git fetch --all
 git merge upstream/master
 ```
 or simply:
