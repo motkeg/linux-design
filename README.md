@@ -6,12 +6,15 @@ In order to work on assignments and projects, you need to do the following in we
    (the main difference is that Developers can't push directly to `master` branch).
 3. Add @orlovm with Guest privileges.
 
-Afterwards, setup the `git` command-line environment:
+Afterwards, setup the `git` command-line environment (global configuration is stored in `~/.gitconfig`):
 
 ```bash
 yum -y install git
 git config --global user.name "User Name"
 git config --global user.email "user@email"
+git config --global push.default simple
+git config --global color.ui true
+git config --global alias.lg "log --decorate --summary --stat --graph --date-order"
 ```
 
 Locally clone this tree — e.g., after forking to user `username`:
