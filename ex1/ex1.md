@@ -158,7 +158,7 @@ YOUR SOLUTION HERE
 ```
 
 
-# Task 8
+## Task 8
 
 Create a file `keyring.asc` containing the **contents** of all public keys mentioned
 in `yum` repositories located in `/etc/yum.repos.d` using `gpgkey` entries, without
@@ -172,7 +172,7 @@ YOUR SOLUTION HERE
 ```
 
 
-# Task 9
+## Task 9
 
 Print a list of all remote IP addresses of established TCP connections, without port
 numbers, and without repetitions.
@@ -185,7 +185,7 @@ YOUR SOLUTION HERE
 ```
 
 
-# Task 10
+## Task 10
 
 For each executable file in `/usr/bin`, use `ldd` to find out which dynamic libraries it is
 linked against. For each “real” dynamic library, located directly under `/lib64` or `/usr/lib64`
