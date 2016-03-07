@@ -112,7 +112,7 @@ be kept intact. This means that extraction must be run under superuser privilege
 exercise exceptional care. Check also the `stage/dev` directory.
 
 If the `stage` directory exists, it must be removed first, after the user confirms
-the destructive operation, or when `--overwrite` is supplied as a script option.
+the destructive operation, or when `-o` / `--overwrite` is supplied as a script option.
 
 
 ## Good luck!
