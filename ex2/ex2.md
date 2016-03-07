@@ -1,22 +1,21 @@
-# Assignment 2 (DRAFT)
+# Assignment 2
 
 Deadline: **13/03/2016** (last updated on 06/03/2016), submission is in pairs.
 
-Details of submitter 1: **John Doe <johndoe@dotcom.com>, ID 123456789**
-
-Details of submitter 2: **Jane Doe <janedoe@dotcom.com>, ID 987654321**
+Please put details of submitters in the script header.
 
 ---
 
 In this assignment you will implement a `gentoo-stage` script for downloading,
-verifying and installing a [Gentoo](https://www.gentoo.org/) root tree, which
-we will work with later.
+verifying and installing a live [Gentoo](https://www.gentoo.org/) root tree, which
+we will work with later.  
+*Note: Gentoo is the best Linux distribution after Slackware.*
 
 For script arguments processing, you should use the `getopts` shell builtin —
 read a [tutorial](http://wiki.bash-hackers.org/howto/getopts_tutorial).
 
 The script must be self-contained (no other files), be well-commented, modular,
-should report and fail on errors with proper exit status and message, avoid long
+should report and fail on errors with a proper exit status and message, avoid long
 outputs, and be overall user-friendly. All temporary files must be removed
 once the script terminates.
 
@@ -41,7 +40,7 @@ page in order to retrieve the keys from the key server using GnuPG (`gpg`)
 tool.
 
 The key firgerprints of imported keys must be verified against both the
-fingerprints on the website (mandatory), and against hardcoded values in the
+fingerprints listed on the website (mandatory), and against hardcoded values in the
 script (verbose warning to user if there is a mismatch).
 
 Each key should be imported only if it does not already exist in user's GnuPG
@@ -58,18 +57,18 @@ You should download the relevant file, including the signed digests file
 (`.DIGESTS.asc`), if it does not already exist in target directory
 with the necessary size. If it exists, but with partial size, resume the download.
 
-Implement also a `-m` / `--mirror` option for using a different base URL instead
+Additionally, implement a `-m <url>` / `--mirror <url>` option for using a different base URL instead
 of `http://distfiles.gentoo.org/` — e.g., `http://mirror.isoc.org.il/pub/gentoo/`.
 See a [mirrors list](https://www.gentoo.org/downloads/mirrors/) for testing.
 
 Once the autobuild and the signed digests are downloaded, the autobuild must be
-verified. First, check the signature with `gpg --verify`. Then, recreate the
-pre-signature file by simply running `gpg` on the `.asc` file. Remove lines
+verified. First, check the signature with `gpg --verify`. Next, restore the
+original `.DIGESTS` file by simply running `gpg` on the `.asc` file. Remove lines
 verifying `.CONTENTS`, remove WHIRLPOOL hashes, and verify the remaining SHA-512
 digest as instructed on the Gentoo keys page.
 
-Finally, create or update a stable symlink to the archive (i.e., without the
-timestamp).
+Finally, create or update a stable symlink to the archive in the same directory
+(i.e., without the timestamp), and remove the old downloaded files (if any).
 
 
 ## Task 3
@@ -103,11 +102,11 @@ should be extracted into `stage/usr/`.
 
 **All** permissions and user / group IDs must be correctly restored. Note that
 CentOS might show some user / groups differently, but numeric IDs (`ls -ln`) must
-be kept. This means that extraction must be run under superuser privileges, so
-exercise exceptional care.
+be kept intact. This means that extraction must be run under superuser privileges, so
+exercise exceptional care. Check also the `stage/dev` directory.
 
-If the `stage` directory exists, it must be removed first after the user confirms
-the destructive operation, or `--overwrite` is supplied as a script option.
+If the `stage` directory exists, it must be removed first, after the user confirms
+the destructive operation, or when `--overwrite` is supplied as a script option.
 
 
 ## Good luck!
