@@ -1,6 +1,6 @@
 # Assignment 2
 
-Deadline: **13/03/2016** (last updated on 06/03/2016), submission is in pairs.
+Deadline: **13/03/2016** (last updated on 07/03/2016 11:00), submission is in pairs.
 
 Please put details of submitters in the script header.
 
@@ -13,6 +13,8 @@ we will work with later.
 
 For script arguments processing, you should use the `getopts` shell builtin —
 read a [tutorial](http://wiki.bash-hackers.org/howto/getopts_tutorial).
+If you want to support alternative long options (optional), you need to use
+the `getopt` command instead, or combine both by replacing arguments.
 
 The script must be self-contained (no other files), be well-commented, modular,
 should report and fail on errors with a proper exit status and message, avoid long
@@ -20,6 +22,7 @@ outputs, and be overall user-friendly. All temporary files must be removed
 once the script terminates.
 
 There needs to be a `-h` / `--help` option for summarizing usage instructions.
+In addition, `-q` / `--quiet` option should suppress normal (non-error) output.
 
 The script must work in your basic CentOS 7 environment without relying on extra
 packages, and should not use superuser privileges (`sudo`) unless necessary.
