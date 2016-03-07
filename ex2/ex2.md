@@ -42,6 +42,9 @@ Implement a `-k` / `--get-keys` option for importing all Gentoo Release Media
 page in order to retrieve the keys from the key server using GnuPG (`gpg`)
 tool.
 
+Don't specify a keyserver as done in the referenced page — let GnuPG decide
+on this matter.
+
 The key firgerprints of imported keys must be verified against both the
 fingerprints listed on the website (mandatory), and against hardcoded values in the
 script (verbose warning to user if there is a mismatch).
