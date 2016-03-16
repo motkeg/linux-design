@@ -1,6 +1,6 @@
 # Assignment 2
 
-Deadline: **17/03/2016** (last updated on 07/03/2016 11:00), submission is in pairs.
+Deadline: **21/03/2016** (last updated on 07/03/2016 11:00), submission is in pairs.
 
 Please put details of submitters in the script header.
 
