@@ -305,8 +305,12 @@ Overlay FS as a module — we will need this for building a live boot media.
 In order to build the kernel, you need to run commands using `make`:
 
 ```bash
-make -C /usr/src/linux-${PV}-gentoo${PVR#${PV}} <command>
+make -C /usr/src/linux-${PV}-gentoo${PVR#${PV}} O=${T}/... <command>
 ```
+
+The directory under `${T}` will contain the build results, and needs to be installed
+into the system, also under `/usr/src`. The kernel file and the modules should be
+installed via `install` and `modules_install` commands in `pkg_config` or similar stage.
 
 For allowed commands, see `/usr/src/linux/README` and [Kernel section][handbook-kernel]
 of Gentoo Handbook.
