@@ -88,7 +88,7 @@ Extracting portage snapshot
 Done
 ```
 
-Now, it is possible to enter the `stage` directory [chroot jail][chroot]:
+Now, it is possible to enter the `stage` directory's [chroot jail][chroot]:
 
 ```
 test@centos ~$ sudo systemd-nspawn -D stage
@@ -150,6 +150,9 @@ Since we would like to verify new portage snapshots inside chroot, the
 Gentoo PGP keys need to be exported. This is most easily achieved by
 using a separate keyring in `gentoo-stage` script, and exporting all
 keys from there.
+
+The source `shared` directory is locates in `ex3`, and the target directory
+is `/usr/local/shared` inside the chroot.
 
 
 ## Task 2: Basic configuration with local portage overlay
@@ -262,11 +265,59 @@ Syncing local tree ...
 ```
 
 
-## Task 3: Custom kernel
+## Task 3: A custom package for building the kernel
+
+In this task, you will create an ebuild (in local portage repository)
+for building and installing the kernel and its modules.
+Note that all new files, such as ebuild and its manifest, need to be handled
+by the script in Task 3.
+
+Start with initializing an ebuild for `sys-kernel/gentoo-kernel`
+package in the local repository, with the same version as the current
+`sys-kernel/gentoo-sources` package. That is, create a file that
+will be located in `/usr/local/portage/sys-kernel/gentoo-kernel`
+directory, under a name similar to `gentoo-kernel-4.1.15-r1`.
+
+Follow the [Quickstart Evuild Guide][devmanual-quickstart] to initialize
+the ebuild:
+
+```bash
+EAPI=5
+
+DESCRIPTION="Binary kernel for my awesome Linux distro"
+HOMEPAGE="https://noexec.org/"
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS="~amd64"
+```
+
+The package should include build-time dependencies on `sys-kernel/gentoo-sources`
+and `sys-apps/kmod` (the latter is required for installing kernel modules).
+You can use [variables][devmanual-vars] for depending on exact package versions.
+
+Consult the [Ebuild Writing][devmanual-ebuilds] guide regarding the partition
+of the build process between ebuild functions.
+
+Use the following [default kernel configuration][kernel-config], but enable
+Overlay FS as a module — we will need this for building a live boot media.
+
+In order to build the kernel, you need to run commands using `make`:
+
+```bash
+make -C /usr/src/linux-${PV}-gentoo${PVR#${PV}} <command>
+```
+
+For allowed commands, see `/usr/src/linux/README` and [Kernel section][handbook-kernel]
+of Gentoo Handbook.
 
 
-## Task 4: Custom package
+[handbook-kernel]: https://wiki.gentoo.org/wiki/Handbook:X86/Installation/Kernel
+[devmanual-quickstart]: https://devmanual.gentoo.org/quickstart/
+[devmanual-vars]: https://devmanual.gentoo.org/ebuild-writing/variables/
+[devmanual-ebuilds]: https://devmanual.gentoo.org/ebuild-writing/
+[kernel-config]: https://github.com/Sabayon/genkernel-next/blob/master/arch/x86_64/kernel-config
 
 
-## Task 5: Custom system
+## Task 4: Custom system
 
