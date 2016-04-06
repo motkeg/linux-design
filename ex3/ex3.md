@@ -278,7 +278,7 @@ package in the local repository, with the same version as the current
 will be located in `/usr/local/portage/sys-kernel/gentoo-kernel`
 directory, under a name similar to `gentoo-kernel-4.1.15-r1`.
 
-Follow the [Quickstart Evuild Guide][devmanual-quickstart] to initialize
+Follow the [Quickstart Ebuild Guide][devmanual-quickstart] to initialize
 the ebuild:
 
 ```bash
