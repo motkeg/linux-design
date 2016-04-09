@@ -1,0 +1,183 @@
+##             editors:
+## 1. Moti gadian 302490263         ##
+## 2. Yulia Futoriansky 310632658   ##
+## 3. Tzlil Eliyahu 203090857       ## 
+
+
+
+#!/bin/bash
+
+set -e
+flag=0
+
+#########################               Main          ###########################
+
+while getopts ":kam:b:phoqe" opt; do
+case $opt in
+##Task 1
+ k)
+
+  echo "                       import Keys.."
+
+    for kid in $(curl -s https://www.gentoo.org/downloads/signatures/ | grep -Eo 0x[a-zA-Z0-9]* | tr "\n" " ");do
+        gpg --recv-keys $kid
+
+    echo "                           fingerprint check:"
+         flag=0
+        for f in $(curl -s https://www.gentoo.org/downloads/signatures/ | grep ^"    <kbd" | sed -e 's/[^A-Z0-9]//g' ) ; do
+
+            if [ "$f"==$(gpg --fingerprint $kid | grep -Eo "=[a-zA-Z0-9 ]*" | sed -e 's/[^A-Z0-9]//g') ]; then
+               flag=1
+            fi
+	done
+	if [[ "$2" != *"-q"* ]]; then
+      if [ $flag==1 ] ; then
+         echo "fingerprint of keyID $kid AUTHORIZED!"
+      else
+         echo "fingerprint of $kid  NOT MATCH!"
+         gpg  --delete-key $kid
+      fi
+   else
+      if [ $flag==0 ] ; then
+         echo "fingerprint of $kid  NOT MATCH!"
+         gpg  --delete-key $kid
+	  fi 
+  fi		
+  done
+     ;;
+##Task 3	 
+ p)
+   	wget -P ./tempF -m -k -K -E http://distfiles.gentoo.org/releases/snapshots/current/portage-latest.tar.xz.gpgsig
+	
+                if [[ $2 == *"-m"* ]]; then          ##
+                    wget -P ./tempF -m -k -K -E $3   ##   
+		elif [[ $4 == *"-m"* ]];then         ## check the option -m <url>
+	            wget -P ./tempF -m -k -K -E $5   ##
+        				
+                else
+                    	wget -P ./tempF -m -k -K -E http://distfiles.gentoo.org/releases/snapshots/current/portage-latest.tar.xz
+                fi
+                #gpg --recv-keys C9189250
+                gpg --verify ./tempF/distfiles.gentoo.org/releases/snapshots/current/portage-latest.tar.xz.gpgsig ./temp/distfiles.gentoo.org/releases/snapshots/current/portage-latest.tar.xz
+
+                if [ "$?" -eq "0" ]; then
+		   path=~/.cache
+		   if [[ $2 == *"-b"* ]]; then     ##
+                       path=$3                     ## check the option -b <dir> 
+		   elif [[ $4 == *"-b"* ]];then    ##
+		       path=$5
+		   fi  
+                     cp -avr ./tempF/distfiles.gentoo.org/releases/snapshots/current/  $path
+                     rm -rf ./tempF/
+                fi
+        echo "All done in Seccses"
+      ;;
+##Task 2	  
+a)
+       if [[ "$2" != *"-m"* ]]; then
+              mainurl="http://distfiles.gentoo.org/releases/amd64/autobuilds/latest-stage3-amd64-nomultilib.txt"
+              path=${mainurl%/*}/
+        else
+           path=$3
+        fi
+
+	    fileN="$(curl -s http://distfiles.gentoo.org/releases/amd64/autobuilds/latest-stage3-amd64-nomultilib.txt | tail -n -1| sed -e 's/[ ].*//g')"
+        fname="${fileN##*/}"
+        digi=".DIGESTS.asc"
+        if [ ! -f ~/.cache/$fname ]; then
+                wget -P ~/.cache/ $path$fileN
+        fi
+        web_size="$(curl -s http://distfiles.gentoo.org/releases/amd64/autobuilds/latest-stage3-amd64-nomultilib.txt | tail -n -1 | sed -e 's/.*[ ]//g')"
+        real_size="$(wc -c ~/.cache/$fname | grep -Eo ^[0-9]*)"
+        if [ -f ~/.cache/$fname ] && [ $web_size != "$real_size" ]; then
+                wget -P ~/.cache/ $path$fileN
+        fi
+        if [ ! -f ~/.cache/$fname$digi ]; then
+                wget -P ~/.cache/ $path$fileN$digi
+        fi
+        gpg --verify ~/.cache/$fname$digi
+        gpg ~/.cache/$fname$digi
+        sha1="$(grep -A 1 -i sha512 ~/.cache/$fname$digi | head -n 2 | tail -n 1 | sed -e 's/[ ].*//g')"
+        sha2="$(sha512sum ~/.cache/$fname | sed -e 's/[ ].*//g')"
+        if [ $sha1=="$sha2" ]; then
+                echo "outhentication authorized"
+        fi
+		;;
+##Task 4
+ e)
+    dir=$(pwd)
+    if [[ $2 == *"-b"* ]]; then        ##
+        dir=$3                         ##
+	elif [[ $4 == *"-b"* ]];then   ##  check the option -b <dir>
+		dir=$5                 ## 
+	elif [[ $5 == *"-b"* ]];then   ## 
+		dir=$6	
+	fi   
+    if [ -d $dir/stage ]; then 
+		# override option set
+		if [[ $2 == *"-o"* || $4 == *"-o"* || $6 == *"-o"* ]]; then 
+		    sudo rm -rf $dir/stage
+			echo "old stage directory removed"
+			mkdir -p $dir/stage/usr
+			echo "stage directory created"
+			
+		else # override option not set
+            echo "stage directory already exists,remove it?  [yes\no]:"
+			read ans
+			while [[ "$ans" != "yes" && "$ans" != "no" && "$ans" != "n" && "$ans" != "N" && "$ans" != "y"
+			&& "$ans" != "Y" ]]; do
+				echo "Please only enter [yes\no]:"
+				read ans
+			done
+			if [[ "$ans" == "no" || "$ans" == "n" || "$ans" == "N" ]]; then
+		        exit 1
+			elif [[ "$ans" == "yes" || "$ans" == "y" || "$ans" == "Y" ]]; then
+				sudo rm -rf $dir/stage
+				mkdir -p $dir/stage/usr
+			fi		
+			
+		fi
+	else 
+		mkdir -p $dir/stage/usr
+		echo "stage directory created"
+		
+	fi
+	    ##       extracting
+		 sudo tar -xpvf ~/.cache/stage3-amd64-nomultilib-*.tar.bz2 -C  $dir/stage
+		 sudo tar -xpvf ~/.cache/*/portage-latest.tar.xz -C  $dir/stage/usr
+	
+        ;;
+##Help		
+ h)   echo "               Wellcom to Help:
+         
+		 
+		 OPTIONS:
+		           
+				   k - option for importing all Gentoo Release Media keys
+				   a - option for downloading the latest stage3 amd64 no-multilib autobuild archive to cache directory
+				   p - option for downloading the latest daily Portage snapshot
+				   e - option for extracting both archives into stage directory
+				   h - option to see this help
+		 
+		 
+		 FLAGS:  
+                   
+				   q - option should suppress normal (non-error) output. 
+                                   m <url> -  option for using a different base URL instead of http://distfiles.gentoo.org/
+                                   b <dir> -  option for using a different directory to save the output from scriptws commands.			   
+                                   o - a flag to 'e' option that mean to override the 'stage/' directory if it exists.
+				   
+                    				   "
+	;;						   
+ :)
+     echo " argument < > is misisng in -$OPTARG"
+	 ;;
+ *)
+   echo "Invalid option - $OPTARG!"
+     ;;
+
+esac
+  done
+		
+		
+
