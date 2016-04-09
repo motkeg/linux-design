@@ -2,9 +2,8 @@
 
 Deadline: **06/03/2016** (last updated on 25/02/2016), submission is in pairs.
 
-Details of submitter 1: **John Doe <johndoe@dotcom.com>, ID 123456789**
+Details of submitter 1: **Moti Gadian <motiga14@gmail.com>, ID 302490263 
 
-Details of submitter 2: **Jane Doe <janedoe@dotcom.com>, ID 987654321**
 
 ---
 
@@ -29,6 +28,7 @@ Suggested tools: `echo`, `tr` (or `sed`).
 Solution:
 ```bash
 YOUR SOLUTION HERE
+echo $PATH | tr ':' '\n'
 ```
 
 
@@ -47,6 +47,7 @@ Suggested tools: `ls`, `cut`, `sort`.
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo cut -d":"  -f6 /etc/passwd | sort -u | xargs ls -ld
 ```
 
 
@@ -68,6 +69,7 @@ Suggested tools: `find`, `sed`, `sort`.
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo find  /etc -type l | sed "s/.*\///" | sort |uniq
 ```
 
 
@@ -90,6 +92,7 @@ Try to make the command as short as possible.
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo sed -i 's:#\s*PasswordAuthentication yes:PasswordAuthentication no:g' /etc/ssh/sshd_config
 ```
 
 
@@ -111,6 +114,7 @@ Suggested tools: `curl`, `ip route`, `grep`, `cut`, `tr`, `sed` (depends on your
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo curl -s --user admin:admin http://10.100.102.1/userRpm/statusRpm.htm | grep -Eo '"\, "[0-9]{1,3\}\.[0-9]""'
 ```
 
 
@@ -132,6 +136,7 @@ Note that:
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo rsync -avzAHS --existing  backup /home/motkeg
 ```
 
 
@@ -155,6 +160,8 @@ lrwxrwxrwx. 1 test test   20 Feb 25 17:34 .git -> ../linux-design/.git
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo find .*  | xargs -0 |  ln -s $(xargs) links
+
 ```
 
 
@@ -169,6 +176,7 @@ Suggested tools: `grep`, `sed`, `sort`, `xargs`.
 Solution:
 ```bash
 YOUR SOLUTION HERE
+grep -r 'gpgkey' /etc/yum.repos.d | cut -d":" -f3 | sort | uniq > keyring.asc
 ```
 
 
@@ -182,6 +190,8 @@ Suggested tools: `ss`, `tail`, `awk`, `sed`, `sort`.
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo ss |  awk '{ print $1 "\t"  $2"\t"  $3"\t"  $4"\t" $6 }' |sort |uniq
+
 ```
 
 
@@ -210,4 +220,6 @@ libattr
 Solution:
 ```bash
 YOUR SOLUTION HERE
+sudo find /usr/bin/ -perm -700 -type f | xargs ldd | grep "/lib64" | awk -F "." '{print $1}' | sort -u
+
 ```
