@@ -21,7 +21,7 @@ b)
     echo " execute  commands.. "
 	i=3
 	while [[ "$i" ]];do
-	 ls
+	 "$i"
 	  i+=1
 	 done
   exit	 
