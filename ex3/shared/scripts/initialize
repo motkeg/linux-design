@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+#gpg --homedir /.gnupg  --import /usr/local/shared/pubring.gpg 
+#rsync -i /usr/local/shared/make.conf  /etc/portage/make.conf
+mkdir -p  /etc/portage/repos.conf 
+rsync -i  /usr/local/shared/repos.conf  /etc/portage/repos.conf
+mkdir -p  /usr/local/portage/
+mkdir -p  /usr/local/portage/profiles/
+mkdir -p  /usr/local/portage/profiles/repo_name
+
+rsync -i   /usr/local/shared/repo_name  /usr/local/portage/profiles/repo_name
+mkdir -p  /usr/local/portage/metadata/
+rsync -i  /usr/local/shared/layout.conf  /usr/local/portage/metadata/layout.conf 

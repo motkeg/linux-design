@@ -1,0 +1,49 @@
+#!/bin/bash
+
+set -e
+
+while getopts ":s:b:h" opt; do
+case $opt in
+s)
+  echo "Updating PGP keys"
+     gpg gpg --refresh-keys 
+echo "Synchronizing shared directory"
+     sudo rsync -pavi linux-design/ex3/shared/ ~/stage/usr/local/shared/  
+ 
+echo "Entering the chroot jail"
+    sudo systemd-nspawn -D "$2"
+  
+   ;;
+   
+b)
+    sudo systemd-nspawn -D "$2"
+    echo " execute  commands.. "
+	i=2
+	while [[ "$i" ]];do
+	  "$i"
+	  i++
+	 done
+  exit	 
+
+ ;;
+
+
+h)
+     echo "          welcome to help:
+      enter-stage -s| <stagedir> [-b] [command [args...]]
+       Enter chroot jail in <stagedir>, optionally with full initialization.
+      enter-stage -h|	show this help "
+ 
+  ;; 
+  
+:)
+     echo " argument < > is misisng in -$OPTARG"
+	 ;;
+*)
+   echo "Invalid option - $OPTARG!"
+     ;;
+
+  
+  
+  esac
+  done
