@@ -2,8 +2,8 @@
 
 set -e
 
-#gpg --homedir /.gnupg  --import /usr/local/shared/pubring.gpg 
-#rsync -i /usr/local/shared/make.conf  /etc/portage/make.conf
+gpg --homedir /.gnupg  --import /usr/local/shared/pubring.gpg 
+rsync -i /usr/local/shared/make.conf  /etc/portage/make.conf
 mkdir -p  /etc/portage/repos.conf 
 rsync -i  /usr/local/shared/repos.conf  /etc/portage/repos.conf
 mkdir -p  /usr/local/portage/
