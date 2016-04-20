@@ -13,3 +13,11 @@ mkdir -p  /usr/local/portage/profiles/repo_name
 rsync -i   /usr/local/shared/repo_name  /usr/local/portage/profiles/repo_name
 mkdir -p  /usr/local/portage/metadata/
 rsync -i  /usr/local/shared/layout.conf  /usr/local/portage/metadata/layout.conf 
+
+#create the kernel fils
+mkdir -p /usr/local/portage/sys-kernel/
+mkdir -p /usr/local/portage/sys-kernel/gentoo-kernel
+mkdir -p /usr/local/portage/sys-kernel/gentoo-sources
+
+rsync -i /usr/local/shared/gentoo-kernel  /usr/local/portage/sys-kernel/gentoo-kernel
+ 
