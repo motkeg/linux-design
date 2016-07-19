@@ -1,12 +1,4 @@
-In order to work on assignments and projects, you need to do the following in web interface:
-
-1. Fork this tree to a **private** repository (you will see a *Fork* button after you sign in).
-   Again, set the repository as **private**. You don't want non-group members to see your solutions.
-2. Add other team members with Master or Developer privileges
-   (the main difference is that Developers can't push directly to `master` branch).
-3. Add @orlovm with Guest privileges.
-
-Afterwards, setup the `git` command-line environment (global configuration is stored in `~/.gitconfig`):
+ setup the `git` command-line environment (global configuration is stored in `~/.gitconfig`):
 
 ```bash
 yum -y install git
